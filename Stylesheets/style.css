@@ -1,0 +1,16 @@
+.nav-item.active {
+    background-color: blue;
+    color: white;
+}
+
+.nav-link {
+    cursor: pointer;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.btn-form {
+    margin-top: 20px;
+}
