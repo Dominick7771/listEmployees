@@ -1,21 +1,40 @@
-class Company {
-    constructor(employees) {
-        this.employees = employees;
-    }
+(
+    function()
+    {
+        let App = window.App || {}
 
-    hire(employee) {
-        return this.employees.add(employee);
-    }
+        function Company(employees)
+        {
+            this.employees=employees
+        }
 
-    fire(id) {
-        return this.employees.remove(id);
-    }
+        Company.prototype.hire = function(employee)
+        {
+            return this.employees.add(employee)
+        }
 
-    computeBudget() {
-        return this.employees.getAll().forEach(this.employees.salary)
-    }
+        Company.prototype.fire = function(id)
+        {
+            return this.employees.remove(id)
+        }
 
-    processEmployees(processingFunction) {
-        this.employees.getAll().forEach(processingFunction);
+        Company.prototype.computeBudget = function()
+        {
+            let allEmployees=this.employees.getAll()
+            let budget=0;
+            allEmployees.forEach(function (employee)
+            {
+                budget+=employee.salary
+            })
+            return budget
+        }
+
+        Company.prototype.processEmployees = function(processingFunction)
+        {
+            this.employees.getAll().forEach(processingFunction)
+        }
+
+        App.Company=Company
+        window.App = App
     }
-}
+)()

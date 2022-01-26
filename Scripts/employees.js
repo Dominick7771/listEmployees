@@ -1,32 +1,40 @@
-class Employees {
-    constructor() {
-        this.data = {}
-    }
+(
+    function ()
+    {
+        let App = window.App || {}
 
-    add(employees) {
-        if (!employees.id) {
-            throw  new Error('Property email must be in order');
+        function Employees()
+        {
+            this.data = {}
         }
-        if (this.data[employees.id]) {
-            return false;
+
+        Employees.prototype.add=function(employee)
+        {
+            if(this.data[employee.id])
+                return false
+            this.data[employee.id] = employee
+            return true
         }
-        this.data[employees.id] = employees;
-        return true;
-    }
 
-    getAll() {
-        return Object.values(this.data);
-    }
-
-    get(id) {
-        return this.data[id];
-    }
-
-    remove(id) {
-        if (!this.data[id]) {
-            return false;
+        Employees.prototype.get = function(id)
+        {
+            return this.data[id]
         }
-        delete this.data[id];
-        return true;
+
+        Employees.prototype.getAll =function()
+        {
+            return Object.values(this.data)
+        }
+
+        Employees.prototype.remove = function(id)
+        {
+            if(!this.data[id])
+                return false
+            delete this.data[id]
+            return true
+        }
+
+        App.Employees = Employees
+        window.App = App
     }
-}
+)()
