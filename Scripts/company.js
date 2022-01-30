@@ -1,24 +1,19 @@
-(
-    function()
-    {
-        let App = window.App || {}
+class Company {
+    constructor(employees) {
+        this.employees=employees
+    }
 
-        function Company(employees)
-        {
-            this.employees=employees
-        }
-
-        Company.prototype.hire = function(employee)
+        hire = function(employee)
         {
             return this.employees.add(employee)
         }
 
-        Company.prototype.fire = function(id)
+        fire = function(id)
         {
             return this.employees.remove(id)
         }
 
-        Company.prototype.computeBudget = function()
+        computeBudget = function()
         {
             let allEmployees=this.employees.getAll()
             let budget=0;
@@ -29,12 +24,12 @@
             return budget
         }
 
-        Company.prototype.processEmployees = function(processingFunction)
+        processEmployees = function(processingFunction)
         {
-            this.employees.getAll().forEach(processingFunction)
+            this.employees.getAll().then(function (employees){
+                employees.forEach(processingFunction);
+            }).catch(function (error){
+                alert(error.responseText);
+            })
         }
-
-        App.Company=Company
-        window.App = App
-    }
-)()
+}

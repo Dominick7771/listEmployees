@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <file url="file://$PROJECT_DIR$/Scripts/formHandler.js" libraries="{@types/jquery, jquery}" />
+    <file url="file://$PROJECT_DIR$/Scripts/navigator.js" libraries="{@types/jquery}" />
+    <file url="PROJECT" libraries="{@types/jquery, jquery}" />
+  </component>
+</project>

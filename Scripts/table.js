@@ -1,25 +1,21 @@
-(
-    function ()
-    {
-        let App = window.App || {}
+class Table {
+    constructor(selector, headers, removeFn, removeIconClass) {
+        this.headers = headers
+        this.removeFn = removeFn
+        this.removeIconClass = removeIconClass || 'fa fa-trash'
 
-        function Table(selector, headers, removeFn, removeIconClass)
-        {
-            this.headers = headers
-            this.removeFn = removeFn
-            this.removeIconClass = removeIconClass || 'fa fa-trash'
-            let $table = $(selector)
-            let $thead = $('<thead>')
-            $table.append($thead)
-            fillThead.call(this,$thead)
-            this.$tbody = $('<tbody>')
-            $table.append(this.$tbody)
-        }
+        let $table = $(selector)
+        let $thead = $('<thead>')
+        $table.append($thead)
+        this.#fillThead.call(this, $thead);
+        this.$tbody = $('<tbody>')
+        $table.append(this.$tbody)
+    }
 
-        function fillThead(thead)
+        #fillThead(thead)
         {
             let $tr=$('<tr>')
-            this.headers.map(createTableHeader).forEach(function(th)
+            this.headers.map(this.#createTableHeader).forEach(function(th)
             {
                 $tr.append(th)
             })
@@ -32,17 +28,17 @@
 
         }
 
-        function createTableHeader(header)
+        #createTableHeader(header)
         {
             return $('<th>', {text:header})
         }
 
-        Table.prototype.addRow = function(data)
+        addRow = function(data)
         {
-            this.$tbody.append(createRow.call(this,data))
+            this.$tbody.append(this.#createRow.call(this,data))
         }
 
-        function createRow(data)
+        #createRow(data)
         {
 
             let $row = $('<tr>')
@@ -72,8 +68,5 @@
             }
             return $row
         }
-
-        App.Table = Table
-        window.App = App
     }
-)()
+

@@ -1,17 +1,12 @@
-(
-    function ()
-    {
-        let App = window.App || {}
+class Navigator {
+    constructor(selectors, activeItem) {
+        this.previousActiveIndex = -1
+        this.controls = selectors.map(this.#createControl)
+        this.#addHandler.call(this)
+        this.#showActiveIndex.call(this, activeItem)
+    }
 
-        function Navigator(selectors, activeItem)
-        {
-            this.previousActiveIndex = -1
-            this.controls = selectors.map(createControl)
-            addHandler.call(this)
-            showActiveIndex.call(this, activeItem)
-        }
-
-        function createControl(selector)
+        #createControl(selector)
         {
             let control = {}
             control.$navItem = $(selector)
@@ -19,46 +14,42 @@
             return control
         }
 
-        function  addHandler()
+        #addHandler()
         {
             this.controls.forEach(function (control, index)
             {
                 control.$navItem.on('click', function (event)
                 {
                     event.preventDefault()
-                    showActiveIndex.call(this, index)
+                    this.#showActiveIndex.call(this, index)
                 }.bind(this))
             }.bind(this))
         }
 
-        function showActiveIndex(activeIndex)
+        #showActiveIndex(activeIndex)
         {
             if(activeIndex===this.previousActiveIndex)
                 return
 
             if(this.previousActiveIndex>=0)
             {
-                hideControl(this.controls[this.previousActiveIndex])
+                this.#hideControl(this.controls[this.previousActiveIndex])
             }
 
-            showControl(this.controls[activeIndex])
+            this.#showControl(this.controls[activeIndex])
 
             this.previousActiveIndex = activeIndex
         }
 
-        function hideControl(control)
+        #hideControl(control)
         {
             control.$navItem.removeClass('active')
             control.$areaItem.attr('hidden', true)
         }
 
-        function showControl(control)
+        #showControl(control)
         {
             control.$navItem.addClass('active')
             control.$areaItem.attr('hidden', false)
         }
-
-        App.Navigator = Navigator
-        window.App = App
     }
-)()
